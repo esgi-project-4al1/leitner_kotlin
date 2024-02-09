@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class SearchCard(
     private val cardSearchSpi : CardSearchSpi
 ): CardSearchApi{
-    override fun searchByTag(tag: String?): List<Card> {
+    override fun searchByTag(tag: List<String?>): List<Card> {
        return emptyList()
     }
 

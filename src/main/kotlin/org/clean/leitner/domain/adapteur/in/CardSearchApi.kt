@@ -4,5 +4,5 @@ import org.clean.leitner.domain.model.Card
 
 interface CardSearchApi {
 
-    fun searchByTag(tag: String?): List<Card>
+    fun searchByTag(tag: List<String?>): List<Card>
 }

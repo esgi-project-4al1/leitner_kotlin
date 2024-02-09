@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import java.util.*
+import kotlin.collections.List
 
 class SearchCardTest{
 
@@ -19,7 +20,7 @@ class SearchCardTest{
     @Test
     fun searchCardsByTag(){
         //GIVE
-        val tag = "TeamWork"
+        val tags = listOf("TeamWork")
         val cardList = listOf(
             Card(
                 CardId(
@@ -55,25 +56,27 @@ class SearchCardTest{
                 Category.FIRST,
                 "question",
                 "answer",
-                "tag",
+                "tags",
             )
         )
 
-        whenever(searchCardRepository.findByTag(tag)).thenReturn(cardList)
-        val cardResult = cardSearch.searchByTag(tag)
+        val cardReturn = cardList.stream().filter { !tags.contains(it.tag) }.toList()
+        whenever(searchCardRepository.findByTag(tags)).thenReturn(cardReturn)
+        val cardResult = cardSearch.searchByTag(tags)
         assertAll({
             assertNotNull(cardResult)
             assertEquals(3, cardResult.size)
-            cardResult.stream().forEach{
-                assertEquals(tag, it.tag)
+            cardResult.forEach { card ->
+                assertEquals(tags, card.tag)
             }
         })
+
     }
 
     @Test
     fun searchCardsWithoutTag(){
-        //GIVE
-        val tag = null
+        //GIVEN
+        val tags: List<String> = emptyList()
         val cardList = listOf(
             Card(
                 CardId(
@@ -109,26 +112,25 @@ class SearchCardTest{
                 Category.FIRST,
                 "question",
                 "answer",
-                "tag",
+                "tags",
             )
         )
 
-        whenever(searchCardRepository.findByTag(tag)).thenReturn(cardList)
-        val cardResult = cardSearch.searchByTag(tag)
+        whenever(searchCardRepository.findByTag(tags)).thenReturn(cardList)
+        val cardResult = cardSearch.searchByTag(tags)
         assertAll({
             assertNotNull(cardResult)
             assertEquals(4, cardResult.size)
         })
     }
 
-
     @Test
     fun searchCardWithoutCards(){
-        //GIVE
-        val tag = null
+        //GIVEN
+        val tags: List<String> = emptyList()
         val cardList = emptyList<Card>()
-        whenever(searchCardRepository.findByTag(tag)).thenReturn(cardList)
-        val cardResult = cardSearch.searchByTag(tag)
+        whenever(searchCardRepository.findByTag(tags)).thenReturn(cardList)
+        val cardResult = cardSearch.searchByTag(tags)
         assertAll({
             assertNotNull(cardResult)
             assertEquals(0, cardResult.size)
@@ -137,51 +139,19 @@ class SearchCardTest{
 
     @Test
     fun searchCardWithUnknownTag(){
-        //GIVE
-        val tag = "null"
-        val cardList = listOf(
-            Card(
-                CardId(
-                    UUID.randomUUID().toString()
-                ),
-                Category.FIRST,
-                "question",
-                "answer",
-                "TeamWork",
-            )
-            ,Card(
-                CardId(
-                    UUID.randomUUID().toString()
-                ),
-                Category.FIRST,
-                "question",
-                "answer",
-                "TeamWork",
-            ),
-            Card(
-                CardId(
-                    UUID.randomUUID().toString()
-                ),
-                Category.FIRST,
-                "question",
-                "answer",
-                "TeamWork",
-            ),
-            Card(
-                CardId(
-                    UUID.randomUUID().toString()
-                ),
-                Category.FIRST,
-                "question",
-                "answer",
-                "tag",
-            )
-        )
-        whenever(searchCardRepository.findByTag(tag)).thenReturn(cardList)
-        val cardResult = cardSearch.searchByTag(tag)
+        //GIVEN
+        val tags: List<String> = listOf("null")
+        val cardList = emptyList<Card>()
+        whenever(searchCardRepository.findByTag(tags)).thenReturn(cardList)
+        val cardResult = cardSearch.searchByTag(tags)
         assertAll({
             assertNotNull(cardResult)
             assertEquals(0, cardResult.size)
         })
+    }
+
+
+    fun List<String>.contentOneString(tags: List<String>): Boolean {
+        return this.any { it in tags }
     }
 }

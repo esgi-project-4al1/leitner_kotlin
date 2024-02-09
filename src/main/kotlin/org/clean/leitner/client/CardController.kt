@@ -34,7 +34,7 @@ class CardController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun searchCard(
-        @RequestParam(required = false, defaultValue = "") tag: String?
+        @RequestParam(required = false, defaultValue = "") tag: List<String>
     ): List<Card> {
         return cardSearchApi.searchByTag(tag)
     }

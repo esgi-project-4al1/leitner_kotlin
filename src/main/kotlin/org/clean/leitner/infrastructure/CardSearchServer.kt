@@ -13,16 +13,12 @@ class CardSearchServer(
     private val cardMapper: CardMapper,
 ) : CardSearchSpi {
 
-    override fun findByTag(tag: String?): List<Card> {
-        return if (tag == null) {
-            cardRepository.findAll().transformToDomain()
-        } else {
-            cardRepository.findByTag(tag).transformToDomain()
-        }
+    override fun findByTag(tags: List<String>): List<Card> {
+        return tags.stream()
+            .map { tag -> cardRepository.findByTag(tag) }
+            .flatMap { cards -> cards.stream() }
+            .map { card -> cardMapper.mappCardEntityToDomain(card) }
+            .toList()
     }
 
-
-    fun List<CardEntity>.transformToDomain(): List<Card> {
-        return this.stream().map { cardMapper.mappCardEntityToDomain(it) }.toList()
-    }
 }
