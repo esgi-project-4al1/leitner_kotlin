@@ -4,7 +4,6 @@ import org.clean.leitner.domain.model.Card
 
 interface CardSearchSpi {
 
-    fun findAll(): List<Card>
 
     fun findByTag(tag : String?): List<Card>
 }
