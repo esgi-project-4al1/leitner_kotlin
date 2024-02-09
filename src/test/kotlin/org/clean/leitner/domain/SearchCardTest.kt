@@ -60,14 +60,16 @@ class SearchCardTest{
             )
         )
 
-        val cardReturn = cardList.stream().filter { !tags.contains(it.tag) }.toList()
+        val cardReturn = cardList.stream().filter { tags.contains(it.tag) }.toList()
+
         whenever(searchCardRepository.findByTag(tags)).thenReturn(cardReturn)
+
         val cardResult = cardSearch.searchByTag(tags)
         assertAll({
             assertNotNull(cardResult)
             assertEquals(3, cardResult.size)
             cardResult.forEach { card ->
-                assertEquals(tags, card.tag)
+                assertEquals(tags.first(), card.tag)
             }
         })
 
