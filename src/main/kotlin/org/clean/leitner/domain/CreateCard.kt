@@ -20,6 +20,7 @@ class CreateCard(
         )
     }
 
+
     fun CardUserData.toCard(): Card{
         return Card(
             CardId(UUID.randomUUID().toString()),
