@@ -6,5 +6,5 @@ interface CardSearchSpi {
 
     fun findAll(): List<Card>
 
-    fun findByTag(): List<Card>
+    fun findByTag(tag : String?): List<Card>
 }
