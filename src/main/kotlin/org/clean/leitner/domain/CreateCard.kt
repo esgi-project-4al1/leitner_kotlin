@@ -1,5 +1,7 @@
 package org.clean.leitner.domain
 
+import org.clean.leitner.domain.adapteur.`in`.CardCreateApi
+import org.clean.leitner.domain.adapteur.out.CardCreateSpi
 import org.clean.leitner.domain.model.Card
 import org.clean.leitner.domain.model.CardId
 import org.clean.leitner.domain.model.CardUserData
@@ -8,15 +10,23 @@ import org.springframework.stereotype.Service
 import java.util.UUID
 
 @Service
-class CreateCard {
+class CreateCard(
+    private val cardpersistence: CardCreateSpi,
+): CardCreateApi {
 
-    fun create(cardUserData: CardUserData): Card {
+    override fun createCard(card: CardUserData): Card {
+        return cardpersistence.save(
+            card.toCard()
+        )
+    }
+
+    fun CardUserData.toCard(): Card{
         return Card(
             CardId(UUID.randomUUID().toString()),
             Category.FIRST,
-            cardUserData.question,
-            cardUserData.answer,
-            cardUserData.tag
+            this.question,
+            this.answer,
+            this.tag
         )
     }
 }
