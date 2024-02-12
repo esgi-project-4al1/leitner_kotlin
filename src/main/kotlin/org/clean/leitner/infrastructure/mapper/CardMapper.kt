@@ -28,6 +28,7 @@ class CardMapper {
             question = card.question,
             answer = card.answer,
             tag = card.tag,
+            dateNextResponse = card.dateNextResponse
         )
     }
 }

@@ -12,5 +12,5 @@ data class CardEntity(
     val question : String,
     val answer : String,
     val tag :   String,
-    val date: LocalDate = LocalDate.now()
+    val dateNextResponse: LocalDate? = LocalDate.now()
 )

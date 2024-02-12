@@ -1,10 +1,11 @@
 package org.clean.leitner.client
 
+import org.clean.leitner.client.dto.CardDto
+import org.clean.leitner.client.utils.toClient
 import org.clean.leitner.client.utils.tryCatch
 import org.clean.leitner.domain.adapteur.`in`.CardAnswerApi
 import org.clean.leitner.domain.adapteur.`in`.CardCreateApi
 import org.clean.leitner.domain.adapteur.`in`.CardSearchApi
-import org.clean.leitner.domain.model.Card
 import org.clean.leitner.domain.model.CardUserData
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -24,8 +25,8 @@ class CardController(
     )
     fun createCard(
         @RequestBody(required = true) cardUserData: CardUserData
-    ): Card {
-        return cardCreateApi.createCard(cardUserData)
+    ): CardDto {
+        return cardCreateApi.createCard(cardUserData).toClient()
     }
 
 
@@ -34,8 +35,8 @@ class CardController(
     )
     fun searchCard(
         @RequestParam(required = false, defaultValue = "") tag: List<String>
-    ): List<Card> {
-        return cardSearchApi.searchByTag(tag)
+    ): List<CardDto> {
+        return cardSearchApi.searchByTag(tag).stream().map { it.toClient() }.toList()
     }
 
     @PatchMapping(
