@@ -11,6 +11,6 @@ class QuizzCard(
     private val cardQuizzSpi: CardQuizzSpi
 ): CardQuizzApi {
     override fun findCardForQuizzDay(date: LocalDate): List<Card> {
-        TODO("Not yet implemented")
+        return cardQuizzSpi.findByBeforeNextDayResponseOrNow(date)
     }
 }

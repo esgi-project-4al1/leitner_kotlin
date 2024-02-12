@@ -21,7 +21,7 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.data:spring-data-mongodb:4.2.2")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb:3.2.2")
     implementation("org.springframework.boot:spring-boot-starter-web:3.2.2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")

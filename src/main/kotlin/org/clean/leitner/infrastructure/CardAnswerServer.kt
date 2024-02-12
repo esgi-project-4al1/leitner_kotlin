@@ -14,7 +14,7 @@ class CardAnswerServer(
     private val repository: CardRepository,
 ) : CardAnswerSpi {
     override fun findCard(cardId: UUID): Card? {
-        val cardEntity = repository.findById(cardId).getOrNull() ?: return null
+        val cardEntity = repository.findById(cardId.toString()).getOrNull() ?: return null
         return cardEntity.let { cardMapper.mappCardEntityToDomain(it) }
     }
 
