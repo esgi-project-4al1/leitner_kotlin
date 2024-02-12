@@ -4,5 +4,5 @@ import java.util.*
 
 interface CardAnswerApi {
 
-    fun  answerCardAction(cardId: UUID, goodResponse: Boolean): Boolean?
+    fun  answerCardAction(cardId: UUID, goodResponse: Boolean): Boolean
 }

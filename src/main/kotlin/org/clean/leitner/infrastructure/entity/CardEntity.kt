@@ -2,6 +2,7 @@ package org.clean.leitner.infrastructure.entity
 
 import org.clean.leitner.domain.model.Category
 import org.springframework.data.mongodb.core.mapping.Document
+import java.time.LocalDate
 import java.util.UUID
 
 @Document("card")
@@ -10,5 +11,6 @@ data class CardEntity(
     val category : Category,
     val question : String,
     val answer : String,
-    val tag :   String
+    val tag :   String,
+    val date: LocalDate = LocalDate.now()
 )
