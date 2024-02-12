@@ -61,7 +61,6 @@ class SearchCardTest{
         )
 
         val cardReturn = cardList.stream().filter { tags.contains(it.tag) }.toList()
-
         whenever(searchCardRepository.findByTag(tags)).thenReturn(cardReturn)
 
         val cardResult = cardSearch.searchByTag(tags)

@@ -14,11 +14,8 @@ class CardSearchServer(
 ) : CardSearchSpi {
 
     override fun findByTag(tags: List<String>): List<Card> {
-        return tags.stream()
-            .map { tag -> cardRepository.findByTag(tag) }
-            .flatMap { cards -> cards.stream() }
-            .map { card -> cardMapper.mappCardEntityToDomain(card) }
-            .toList()
+        return tags.flatMap { tag -> cardRepository.findByTag(tag) }
+                .map { card -> cardMapper.mappCardEntityToDomain(card) }.toList()
     }
 
 }
