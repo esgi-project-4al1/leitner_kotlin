@@ -12,6 +12,7 @@ import org.clean.leitner.domain.model.CardUserData
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
 
 @RestController
 @RequestMapping("/cards")
@@ -47,9 +48,9 @@ class CardController(
         path = ["/quizz"]
     )
     fun quizzCard(
-        @RequestParam(required = true) date: String
+        @RequestParam(required = false) date: String?
     ): List<CardDto> {
-        val localDate = date.toLocalDate() ?: return emptyList()
+        val localDate = if (date.isNullOrBlank()) LocalDate.now() else date.toLocalDate() ?: return emptyList()
         return cardQuizzApi.findCardForQuizzDay(localDate).stream().map { it.toClient() }.toList()
     }
 
