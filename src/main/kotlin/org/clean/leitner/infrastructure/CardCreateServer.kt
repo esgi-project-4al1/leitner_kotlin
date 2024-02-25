@@ -1,6 +1,6 @@
 package org.clean.leitner.infrastructure
 
-import org.clean.leitner.domain.adapteur.out.CardCreateSpi
+import org.clean.leitner.adapteur.out.CardCreateSpi
 import org.clean.leitner.domain.model.Card
 import org.clean.leitner.infrastructure.mapper.CardMapper
 import org.clean.leitner.infrastructure.repository.CardRepository

@@ -1,4 +1,4 @@
-package org.clean.leitner.domain.adapteur.out
+package org.clean.leitner.adapteur.out
 
 import org.clean.leitner.domain.model.Card
 import java.time.LocalDate

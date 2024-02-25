@@ -1,7 +1,7 @@
 package org.clean.leitner.domain
 
-import org.clean.leitner.domain.adapteur.`in`.CardAnswerApi
-import org.clean.leitner.domain.adapteur.out.CardAnswerSpi
+import org.clean.leitner.adapteur.`in`.CardAnswerApi
+import org.clean.leitner.adapteur.out.CardAnswerSpi
 import org.clean.leitner.domain.model.Card
 import org.clean.leitner.domain.model.Category
 import org.springframework.stereotype.Service

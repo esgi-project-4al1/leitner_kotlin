@@ -1,4 +1,4 @@
-package org.clean.leitner.domain.adapteur.`in`
+package org.clean.leitner.adapteur.`in`
 
 import org.clean.leitner.domain.model.Card
 import org.clean.leitner.domain.model.CardUserData

@@ -4,10 +4,10 @@ import org.clean.leitner.client.dto.CardDto
 import org.clean.leitner.client.utils.toClient
 import org.clean.leitner.client.utils.toLocalDate
 import org.clean.leitner.client.utils.tryCatch
-import org.clean.leitner.domain.adapteur.`in`.CardAnswerApi
-import org.clean.leitner.domain.adapteur.`in`.CardCreateApi
-import org.clean.leitner.domain.adapteur.`in`.CardQuizzApi
-import org.clean.leitner.domain.adapteur.`in`.CardSearchApi
+import org.clean.leitner.adapteur.`in`.CardAnswerApi
+import org.clean.leitner.adapteur.`in`.CardCreateApi
+import org.clean.leitner.adapteur.`in`.CardQuizzApi
+import org.clean.leitner.adapteur.`in`.CardSearchApi
 import org.clean.leitner.domain.model.CardUserData
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -28,6 +28,7 @@ class CardController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun createCard(
+        @RequestHeader(required = false, name = "Authorization") apiKey: String?,
         @RequestBody(required = true) cardUserData: CardUserData
     ): CardDto {
         return cardCreateApi.createCard(cardUserData).toClient()
@@ -38,6 +39,7 @@ class CardController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun searchCard(
+        @RequestHeader(required = false, name = "Authorization") apiKey: String?,
         @RequestParam(required = false, defaultValue = "") tag: List<String>
     ): List<CardDto> {
         return cardSearchApi.searchByTag(tag).stream().map { it.toClient() }.toList()
@@ -48,6 +50,7 @@ class CardController(
         path = ["/quizz"]
     )
     fun quizzCard(
+        @RequestHeader(required = false, name = "Authorization") apiKey: String?,
         @RequestParam(required = false) date: String?
     ): List<CardDto> {
         val localDate = if (date.isNullOrBlank()) LocalDate.now() else date.toLocalDate() ?: return emptyList()
@@ -59,6 +62,7 @@ class CardController(
         path = ["{cardId}/answer"]
     )
     fun answerCard(
+        @RequestHeader(required = false, name = "Authorization") apiKey: String?,
         @PathVariable cardId: String,
         @RequestBody(required = true) isValid: Boolean
     ): HttpStatus {

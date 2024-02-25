@@ -1,6 +1,6 @@
 package org.clean.leitner.domain
 
-import org.clean.leitner.domain.adapteur.out.CardCreateSpi
+import org.clean.leitner.adapteur.out.CardCreateSpi
 import org.clean.leitner.domain.model.Card
 import org.clean.leitner.domain.model.CardId
 import org.clean.leitner.domain.model.CardUserData
